@@ -1,0 +1,62 @@
+class Book:
+    def __init__(self, titlu, autor, isbn):
+        self.titlu = titlu
+        self.autor = autor
+        self.isbn = isbn
+
+    def __str__(self):
+        return f"{self.titlu} de {self.autor} (ISBN: {self.isbn})"
+
+
+class Library:
+    def __init__(self):
+        self.carti = []
+
+    def adauga_carte(self, carte):
+        self.carti.append(carte)
+        print(f"Cartea '{carte.titlu}' a fost adaugata in librarie.")
+
+    def scoate_carte(self, isbn):
+        for carte in self.carti:
+            if carte.isbn == isbn:
+                self.carti.remove(carte)
+                print(f"Cartea '{carte.titlu}' a fost scoasa din librarie.")
+                return
+        print(f"Cartea cu ISBN-ul {isbn} nu a fost gasita.")
+
+    def afiseaza_carti(self):
+        if not self.carti:
+            print("Libraria este goala.")
+        else:
+            print("Carti in librarie:")
+            for carte in self.carti:
+                print(carte)
+
+
+def informatii_carte():
+    titlu = input("Introduceti titlul cartii: ")
+    autor = input("Introduceti numele autorului: ")
+    isbn = input("Introduceti ISBN-ul: ")
+    return Book(titlu, autor, isbn)
+
+
+if __name__ == "__main__":
+    library = Library()
+
+    while True:
+        print("\n1. Adauga o carte\n2. Scoate o carte\n3. Afiseaza libraria\n4. Opreste programul")
+        nr = input("Introduceti numarul:")
+
+        if nr == "1":
+            new_book = informatii_carte()
+            library.adauga_carte(new_book)
+        elif nr == "2":
+            isbn_scos = input("Introduceti ISBN-ul cartii: ")
+            library.scoate_carte(isbn_scos)
+        elif nr == "3":
+            library.afiseaza_carti()
+        elif nr == "4":
+            print("ok")
+            break
+        else:
+            print("Alegere gresita.")
